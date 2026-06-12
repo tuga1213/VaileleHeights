@@ -4,11 +4,10 @@
  */
 package Vaileleheights.dao;
 
-import Vaileleheights.model.Guest;
+import Vaileleheights.model.Admin;
 
-public interface GuestDAO {
-    void addGuest(Guest guest);
-    Guest getGuestByName(String name);
-    Guest getGuestByEmail(String email); 
-    boolean isReturningGuest(String email); 
+public interface AdminDAO {
+    Admin getAdminByPassword(String password);
+    void addAdmin(Admin admin);
+    boolean adminExists(String email);
 }

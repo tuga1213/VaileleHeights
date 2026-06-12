@@ -1,15 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package Vaileleheights.ui;
-
-/**
- *
- * @author 
- * Falatugatuga Kerslake
- * 22181971
- */
 
 import Vaileleheights.service.Hotel;
 import Vaileleheights.model.Booking;
@@ -26,7 +15,6 @@ public class HotelBookingSystem {
     private Hotel hotel;
     private Scanner scanner;
     private Admin admin;
-    
 
     public HotelBookingSystem() {
         DatabaseConnection.getInstance();
@@ -38,7 +26,6 @@ public class HotelBookingSystem {
     }
 
     public void start() {
-        
         System.out.println("=============================");
         System.out.println("  Welcome to Vailele Heights Bookings ");
         System.out.println("=============================");
@@ -67,35 +54,35 @@ public class HotelBookingSystem {
 
     // ===== GUEST =====
     private void guestLogin() {
-    System.out.print("\nEnter your name: ");
-    String name = scanner.nextLine();
+        System.out.print("\nEnter your name: ");
+        String name = scanner.nextLine();
 
-    // Email validation
-    String email;
-    while (true) {
-        System.out.print("Enter your email: ");
-        email = scanner.nextLine();
-        if (isValidEmail(email)) {
-            break;
+        // Email validation
+        String email;
+        while (true) {
+            System.out.print("Enter your email: ");
+            email = scanner.nextLine();
+            if (isValidEmail(email)) {
+                break;
+            }
+            System.out.println("Invalid email. Please use a valid format like john@example.com");
         }
-        System.out.println("Invalid email. Please enter a valid email (e.g. john@email.com)");
-    }
 
-    // Phone validation
-    String phone;
-    while (true) {
-        System.out.print("Enter your phone number: ");
-        phone = scanner.nextLine().trim();
-        if (phone.matches("\\d+")) {
-            break;
+        // Phone validation
+        String phone;
+        while (true) {
+            System.out.print("Enter your phone number: ");
+            phone = scanner.nextLine().trim();
+            if (phone.matches("\\+?\\d{7,15}") && !phone.matches("0{7,}") && !phone.matches("1{7,}")) {
+                break;
+            }
+            System.out.println("Invalid phone number. Enter 7-15 digits, optionally starting with +.");
         }
-        System.out.println("Invalid phone number. Please try again.");
-    }
 
-    Guest guest = new Guest(name, email, phone);
-    System.out.println("\nWelcome, " + guest.getName() + "!");
-    guestMenu(guest);
-}
+        Guest guest = new Guest(name, email, phone);
+        System.out.println("\nWelcome, " + guest.getName() + "!");
+        guestMenu(guest);
+    }
 
     private void guestMenu(Guest guest) {
         while (true) {
@@ -122,30 +109,30 @@ public class HotelBookingSystem {
 
     // ===== ADMIN =====
     private void adminLogin() {
-    int attempts = 0;
-    int maxAttempts = 3;
+        int attempts = 0;
+        int maxAttempts = 3;
 
-    while (attempts < maxAttempts) {
-        System.out.print("\nEnter admin password: ");
-        String code = scanner.nextLine();
+        while (attempts < maxAttempts) {
+            System.out.print("\nEnter admin password: ");
+            String code = scanner.nextLine();
 
-        if (admin.authenticate(code)) {
-            System.out.println("Welcome, " + admin.getName() + "!");
-            adminMenu();
-            return;
-        } else {
-            attempts++;
-            int remaining = maxAttempts - attempts;
-            if (remaining > 0) {
-                System.out.println("Incorrect password. " + remaining + " attempt(s) remaining.");
+            if (admin.authenticate(code)) {
+                System.out.println("Welcome, " + admin.getName() + "!");
+                adminMenu();
+                return;
+            } else {
+                attempts++;
+                int remaining = maxAttempts - attempts;
+                if (remaining > 0) {
+                    System.out.println("Incorrect password. " + remaining + " attempt(s) remaining.");
+                }
             }
         }
-    }
 
-    System.out.println("\nToo many failed attempts. System shutting down for security.");
-    scanner.close();
-    System.exit(0);
-}
+        System.out.println("\nToo many failed attempts. System shutting down for security.");
+        scanner.close();
+        System.exit(0);
+    }
 
     private void adminMenu() {
         while (true) {
@@ -183,7 +170,7 @@ public class HotelBookingSystem {
         System.out.print("Enter check-out date (YYYY-MM-DD): ");
         String endDate = scanner.nextLine();
 
-        Room room = hotel.checkAvailability(roomType);
+        Room room = hotel.checkAvailability(roomType, startDate, endDate);
         if (room != null) {
             double total = hotel.calculateTotalPrice(startDate, endDate, room.getPrice());
             long nights = hotel.calculateDays(startDate, endDate);
@@ -259,23 +246,23 @@ public class HotelBookingSystem {
 
     // ===== HELPER =====
     private int readInt() {
-    while (true) {
-        try {
-            if (!scanner.hasNextLine()) {
-                System.out.println("No input detected. Returning to menu.");
-                return -1;
+        while (true) {
+            try {
+                if (!scanner.hasNextLine()) {
+                    System.out.println("No input detected. Returning to menu.");
+                    return -1;
+                }
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Please enter a valid number: ");
             }
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            System.out.print("Please enter a valid number: ");
         }
     }
-}
-    
-    // ==== VALIDATION ====
+
+    // ===== VALIDATION =====
     private boolean isValidEmail(String email) {
-          return email.contains("@") && email.contains(".")
-                  && email.indexOf("@") < email.lastIndexOf(".");
+        String emailRegex = "^[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(emailRegex);
     }
 
     public static void main(String[] args) {

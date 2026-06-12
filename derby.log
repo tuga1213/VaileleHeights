@@ -1,5 +1,8 @@
 ----------------------------------------------------------------
-Fri Jun 12 16:52:13 NZST 2026D001 : [0] The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217), [1] a816c00e-019e-ba2c-6895-00000f1e3920, [2] C:\Users\tugak\OneDrive\Documents\NetBeansProjects\VaileleHeights\VaileleHeightsDB, [3] jdk.internal.loader.ClassLoaders$AppClassLoader@5c647e05, [4] file:/C:/Program%20Files/Apache%20NetBeans/ide/modules/ext/db-derby-10.17.1.0-lib/lib/derby.jar
+Fri Jun 12 19:12:56 NZST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-019e-baad-3d8d-00000ebe4da0 
+on database directory C:\Users\tugak\OneDrive\Documents\NetBeansProjects\VaileleHeights\VaileleHeightsDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@105be200 
+Loaded from file:/C:/Program%20Files/Apache%20NetBeans/ide/modules/ext/db-derby-10.17.1.0-lib/lib/derby.jar
 java.vendor=Eclipse Adoptium
 java.runtime.version=25.0.2+10-LTS
 user.dir=C:\Users\tugak\OneDrive\Documents\NetBeansProjects\VaileleHeights
@@ -7,4 +10,4 @@ os.name=Windows 11
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
-C005 : [0] 
+Database Class Loader started - derby.database.classpath=''

@@ -24,5 +24,9 @@ public class Admin extends User {
     public boolean authenticate(String code) {
         return this.adminCode.equals(code);
     }
+    
+    public String getAdminCode() {
+    return adminCode;
+}
 }
 

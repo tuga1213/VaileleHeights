@@ -51,4 +51,37 @@ public class GuestDAOImpl implements GuestDAO {
         }
         return null;
     }
+    @Override
+public Guest getGuestByEmail(String email) {
+    String sql = "SELECT * FROM guests WHERE email = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return new Guest(
+                rs.getString("name"),
+                rs.getString("email"),
+                rs.getString("phone")
+            );
+        }
+    } catch (SQLException e) {
+        System.out.println("Error finding guest: " + e.getMessage());
+    }
+    return null;
+}
+
+@Override
+public boolean isReturningGuest(String email) {
+    String sql = "SELECT COUNT(*) FROM guests WHERE email = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error checking returning guest: " + e.getMessage());
+    }
+    return false;
+}
 }

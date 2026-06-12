@@ -12,4 +12,5 @@ public interface BookingDAO {
     boolean removeBooking(String bookingId);
     List<Booking> getAllBookings();
     Booking getBookingById(String bookingId);
+    boolean hasDateConflict(int roomNumber, String startDate, String endDate);
 }

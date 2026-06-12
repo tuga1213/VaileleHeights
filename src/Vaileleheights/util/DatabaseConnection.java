@@ -44,6 +44,7 @@ public class DatabaseConnection {
         createRoomsTable();
         createGuestsTable();
         createBookingsTable();
+        createAdminsTable();
     }
 
     private void createRoomsTable() {
@@ -110,6 +111,35 @@ public class DatabaseConnection {
             System.out.println("Bookings table already exists.");
         }
     }
+    
+    private void createAdminsTable() {
+    try (Statement stmt = connection.createStatement()) {
+        stmt.executeUpdate(
+            "CREATE TABLE admins (" +
+            "adminId INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY," +
+            "name VARCHAR(100)," +
+            "email VARCHAR(100)," +
+            "password VARCHAR(100)" +
+            ")"
+        );
+        System.out.println("Admins table created.");
+        insertDefaultAdmin();
+    } catch (SQLException e) {
+        System.out.println("Admins table already exists.");
+    }
+}
+
+private void insertDefaultAdmin() {
+    try (Statement stmt = connection.createStatement()) {
+        stmt.executeUpdate(
+            "INSERT INTO admins (name, email, password) VALUES " +
+            "('Falatugatuga', 'Tuga@vaileleheights.com', 'Kers123')"
+        );
+        System.out.println("Default admin inserted.");
+    } catch (SQLException e) {
+        System.out.println("Error inserting default admin: " + e.getMessage());
+    }
+}
 
     public void closeConnection() {
         try {

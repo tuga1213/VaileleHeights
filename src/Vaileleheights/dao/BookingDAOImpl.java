@@ -113,4 +113,21 @@ public class BookingDAOImpl implements BookingDAO {
         }
         return null;
     }
+    @Override
+public boolean hasDateConflict(int roomNumber, String startDate, String endDate) {
+    String sql = "SELECT COUNT(*) FROM bookings WHERE roomNumber = ? " +
+                 "AND startDate < ? AND endDate > ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, roomNumber);
+        ps.setString(2, endDate);
+        ps.setString(3, startDate);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (SQLException e) {
+        System.out.println("Error checking date conflict: " + e.getMessage());
+    }
+    return false;
+}
 }
