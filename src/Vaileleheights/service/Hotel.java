@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package HotelBookingSystem;
+package Vaileleheights.service;
 
 /**
  *
@@ -10,6 +10,12 @@ package HotelBookingSystem;
  * Falatugatuga Kerslake
  * 22181971
  */
+import Vaileleheights.model.Booking;
+import Vaileleheights.model.DoubleRoom;
+import Vaileleheights.model.Room;
+import Vaileleheights.model.SingleRoom;
+import Vaileleheights.model.Suite;
+import Vaileleheights.model.Guest;
 import java.io.*;
 import java.util.*;
 import java.time.LocalDate;
