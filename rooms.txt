@@ -1,0 +1,6 @@
+101,Single,100.0,false
+102,Double,150.0,false
+103,Double,150.0,false
+104,Double,150.0,false
+105,Single,100.0,false
+106,Suite,250.0,true
