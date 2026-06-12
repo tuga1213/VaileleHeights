@@ -10,6 +10,7 @@ package Vaileleheights.ui;
  * Falatugatuga Kerslake
  * 22181971
  */
+
 import Vaileleheights.service.Hotel;
 import Vaileleheights.model.Booking;
 import Vaileleheights.model.DoubleRoom;
@@ -19,13 +20,16 @@ import Vaileleheights.model.Suite;
 import Vaileleheights.model.Admin;
 import Vaileleheights.model.Guest;
 import java.util.Scanner;
+import Vaileleheights.util.DatabaseConnection;
 
 public class HotelBookingSystem {
     private Hotel hotel;
     private Scanner scanner;
     private Admin admin;
+    
 
     public HotelBookingSystem() {
+        DatabaseConnection.getInstance();
         this.hotel = new Hotel("Vailele Heights");
         this.scanner = new Scanner(System.in);
         this.admin = new Admin("Falatugatuga", "Tuga@vaileleheights.com", "Kers123");
@@ -52,7 +56,7 @@ public class HotelBookingSystem {
                 case 2: adminLogin(); break;
                 case 3:
                     hotel.saveBookings();
-                    System.out.println("Thank you for using Ulalei Bookings. Goodbye!");
+                    System.out.println("Thank you for using Vailele Heights. Goodbye!");
                     scanner.close();
                     return;
                 default:
@@ -82,7 +86,7 @@ public class HotelBookingSystem {
     while (true) {
         System.out.print("Enter your phone number: ");
         phone = scanner.nextLine().trim();
-        if (phone.matches("\\d{7,15}")) {
+        if (phone.matches("\\d+")) {
             break;
         }
         System.out.println("Invalid phone number. Please try again.");
